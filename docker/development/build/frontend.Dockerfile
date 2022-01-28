@@ -7,6 +7,7 @@ WORKDIR /app
 COPY ./frontend/package.json /app
 COPY ./frontend/package-lock.json /app
 RUN npm install
+COPY --chown=node:node ./frontend/node_modules ./node_modules
 
 # add app
 COPY ./frontend ./

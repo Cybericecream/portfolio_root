@@ -2,4 +2,9 @@
 .idea/*
 .env
 frontend/
+frontend/*
 backend/
+backend/*
+.idea/misc.xml
+.idea/modules.xml
+.idea/portfolio_root.iml

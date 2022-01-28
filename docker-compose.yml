@@ -11,7 +11,7 @@ services:
     container_name: proxy
     volumes:
       - ./docker/development/configs/proxy.conf:/etc/nginx/conf.d/portfolio.conf:ro
-    image: nginx
+    image: nginx:1.21
     depends_on:
       - frontend
     networks:
@@ -34,4 +34,3 @@ services:
       - portfolio-frontend-network
     expose:
       - 3000
-    restart: unless-stopped
