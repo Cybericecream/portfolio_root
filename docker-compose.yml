@@ -6,9 +6,12 @@ networks:
   portfolio-backend-network:
     name: portfolio-backend-network
 
+volumes:
+  mariadb:
+
 services:
   proxy:
-    container_name: proxy
+    container_name: portfolio_proxy
     volumes:
       - ./docker/development/configs/proxy.conf:/etc/nginx/conf.d/portfolio.conf:ro
     image: nginx:1.21
@@ -22,7 +25,7 @@ services:
       - NGINX_PORT=80
 
   frontend:
-    container_name: frontend
+    container_name: portfolio_frontend
     working_dir: /app
     volumes:
       - ./frontend:/app
@@ -34,3 +37,31 @@ services:
       - portfolio-frontend-network
     expose:
       - 3000
+
+  backend:
+    container_name: portfolio_backend
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    build:
+      context: .
+      dockerfile: docker/development/build/backend.Dockerfile
+    networks:
+      - portfolio-frontend-network
+      - portfolio-backend-network
+    expose:
+      - 3000
+
+  db: 
+    container_name: portfolio_db
+    volumnes:
+      - mariadb:/var/lib/mysql
+    image: mariadb:latest
+    environment:
+      - MARIADB_ROOT_PASSWORD="qwerty"
+    networks:
+      - portfolio-frontend-network
+      - portfolio-backend-network
+    ports:
+      - 13306:3306
