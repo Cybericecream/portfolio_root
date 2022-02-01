@@ -6,8 +6,8 @@ WORKDIR /app
 # install app dependencies
 COPY ./backend/package.json /app
 COPY ./backend/package-lock.json /app
-RUN npm install
-COPY --chown=node:node ./backend/node_modules ./node_modules
+#RUN npm install
+#RUN mkdir node_modules/.cache && chmod -R 777 node_modules/.cache
 
 # add app
 COPY ./backend ./
