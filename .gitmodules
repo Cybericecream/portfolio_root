@@ -2,3 +2,7 @@
 	path = frontend
 	url = git@github.com:Cybericecream/portfolio_frontend.git
 	branch = main
+[submodule "backend"]
+	path = backend
+	url = git@github.com:Cybericecream/portfolio_backend.git
+	branch = main
